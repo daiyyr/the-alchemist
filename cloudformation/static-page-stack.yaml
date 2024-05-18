@@ -1,0 +1,9 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  MyStaticWebsiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: hello-cloudfront
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
