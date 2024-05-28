@@ -1,5 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Resources:
+
   MyStaticWebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
@@ -7,6 +8,22 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
+
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: hello-cloudfront
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: arn:aws:s3:::hello-cloudfront/*
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::654654455942:distribution/${CloudFrontDistribution}"
 
   MyACMCertificate:
     Type: AWS::CertificateManager::Certificate
@@ -16,41 +33,74 @@ Resources:
       SubjectAlternativeNames:
         - www.the-alchemist.link
 
-  CloudFrontOriginAccessIdentity:
-    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+  # CloudFrontOriginAccessIdentity:
+  #   Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+  #   Properties:
+  #     CloudFrontOriginAccessIdentityConfig:
+  #       Comment: this is a AWS::CloudFront::CloudFrontOriginAccessIdentity for hello-cloudfront
+
+
+  CloudFrontOriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
     Properties:
-      CloudFrontOriginAccessIdentityConfig:
-        Comment: this is a AWS::CloudFront::CloudFrontOriginAccessIdentity for hello-cloudfront
+      OriginAccessControlConfig:
+        Description: "origin access control(OAC) for allowing cloudfront to access S3 bucket"
+        Name: hello-cloudfront
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
 
   CloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
+    DependsOn:
+      - MyStaticWebsiteBucket
     Properties:
-      Enabled: true
-      Aliases:
-        - { Name: www.the-alchemist.link }
       DistributionConfig:
-        DefaultRootObject: index.html
         Origins:
-          -
-            DomainName: !GetAtt MyStaticWebsiteBucket.DomainName
-            Id: MyStaticWebsiteOrigin
+          - DomainName: hello-cloudfront.s3.ap-southeast-2.amazonaws.com
+            Id: hello-cloudfront
             S3OriginConfig:
-              OriginAccessIdentity:
-                !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
-        Restrictions:
-          GeoRestriction:
-            RestrictionType: none
+              OriginAccessIdentity: ""
+            OriginAccessControlId: !GetAtt CloudFrontOriginAccessControl.Id
+        Enabled: "true"
+        DefaultRootObject: index.html
+        CustomErrorResponses:
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+        HttpVersion: http3
+        Aliases:
+          - www.the-alchemist.link
         ViewerCertificate:
-          ACMCertificateARN: !Ref MyACMCertificate
+          AcmCertificateArn: !Ref MyACMCertificate
+          MinimumProtocolVersion: TLSv1.2_2021
           SslSupportMethod: sni-only
-          MinimumProtocolVersion: TLSv1
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - DELETE
+            - GET
+            - HEAD
+            - OPTIONS
+            - PATCH
+            - POST
+            - PUT
+          Compress: true
+          TargetOriginId: hello-cloudfront
+          ForwardedValues:
+            QueryString: "false"
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
 
   Route53AliasRecord:
     Type: AWS::Route53::RecordSet
     Properties:
-      AliasTarget:
-        DNSName: !GetAtt CloudFrontDistribution.DomainName
-        HostedZoneId: Z0391670PTNOWL17RBJ
       Name: www.the-alchemist.link
       Type: A
-      TTL: 300
+      AliasTarget:
+        HostedZoneId: Z06958611JDYVCG41K93R
+        DNSName: !GetAtt CloudFrontDistribution.DomainName
