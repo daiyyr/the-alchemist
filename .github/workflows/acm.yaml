@@ -1,9 +1,12 @@
-name: DeploySttaticPage
+name: DeployACM
 
 on:
   push:
     branches:
       - main
+    paths:
+      - '.github/workflows/acm.yaml'
+      - 'cloudformation/acm-cert.yaml'
 
 jobs:
   static_page:
@@ -19,14 +22,14 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_TEEMO1DAI }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_TEEMO1DAI }}
-          aws-region: ap-southeast-2
+          aws-region: us-east-1
       
       - name: DeployCFNStack
         id: cfn-static-page
         uses: aws-actions/aws-cloudformation-github-deploy@master
         with:
-          name: the-alchemist
-          template: cloudformation/static-page-stack.yaml
+          name: the-alchemist-acm
+          template: cloudformation/acm-cert.yaml
           no-fail-on-empty-changeset: "1"
           # parameter-overrides: >-
           #   AvailabilityZones=${{ github.event.inputs.region }}a,
@@ -38,8 +41,3 @@ jobs:
           #   EKSPrivateAccessEndpoint=Enabled,
           #   RemoteAccessCIDR=0.0.0.0/0
 
-      # - name: Install AWS CLI
-      #   uses: aws-actions/install-aws-cli@v1
-
-      - name: Upload files to S3 bucket
-        run: aws s3 cp --recursive static s3://the-alchemist-link/

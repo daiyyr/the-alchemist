@@ -25,20 +25,13 @@ Resources:
               StringEquals:
                 AWS:SourceArn: !Sub "arn:aws:cloudfront::654654455942:distribution/${CloudFrontDistribution}"
 
-  MyACMCertificate:
-    Type: AWS::CertificateManager::Certificate
-    Properties:
-      DomainName: www.the-alchemist.link
-      ValidationMethod: DNS
-      SubjectAlternativeNames:
-        - www.the-alchemist.link
+
 
   # CloudFrontOriginAccessIdentity:
   #   Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
   #   Properties:
   #     CloudFrontOriginAccessIdentityConfig:
   #       Comment: this is a AWS::CloudFront::CloudFrontOriginAccessIdentity for the-alchemist
-
 
   CloudFrontOriginAccessControl:
     Type: AWS::CloudFront::OriginAccessControl
@@ -76,7 +69,9 @@ Resources:
         Aliases:
           - www.the-alchemist.link
         ViewerCertificate:
-          AcmCertificateArn: !Ref MyACMCertificate
+          # To use a certificate in AWS Certificate Manager (ACM) to require HTTPS between viewers and CloudFront, make sure you request (or import) the certificate in the US East (N. Virginia) Region (us-east-1).
+          # https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html
+          AcmCertificateArn: !Ref arn:aws:acm:us-east-1:654654455942:certificate/1xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxx
           MinimumProtocolVersion: TLSv1.2_2021
           SslSupportMethod: sni-only
         DefaultCacheBehavior:
