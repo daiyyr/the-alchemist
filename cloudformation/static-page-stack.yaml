@@ -60,7 +60,7 @@ Resources:
         DefaultRootObject: index.html
         CustomErrorResponses:
           - ErrorCode: 404
-            ResponseCode: 200
+            ResponseCode: 404
             ResponsePagePath: /error.html
           - ErrorCode: 403
             ResponseCode: 200
