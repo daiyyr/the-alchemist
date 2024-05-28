@@ -99,4 +99,6 @@ Resources:
       HostedZoneId: Z06958611JDYVCG41K93R
       AliasTarget:
         DNSName: !GetAtt CloudFrontDistribution.DomainName
-        HostedZoneId: Z06958611JDYVCG41K93R
+        HostedZoneId: Z2FDTNDATAQYW2 
+        # For CloudFront distributions, the value is always Z2FDTNDATAQYW2
+        # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-aliastarget.html#cfn-route53-recordset-aliastarget-hostedzoneid
