@@ -71,7 +71,7 @@ Resources:
         ViewerCertificate:
           # To use a certificate in AWS Certificate Manager (ACM) to require HTTPS between viewers and CloudFront, make sure you request (or import) the certificate in the US East (N. Virginia) Region (us-east-1).
           # https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html
-          AcmCertificateArn: !Ref arn:aws:acm:us-east-1:654654455942:certificate/a98c772e-237d-4004-81b7-71bd8c1af3f9
+          AcmCertificateArn: arn:aws:acm:us-east-1:654654455942:certificate/a98c772e-237d-4004-81b7-71bd8c1af3f9
           MinimumProtocolVersion: TLSv1.2_2021
           SslSupportMethod: sni-only
         DefaultCacheBehavior:
