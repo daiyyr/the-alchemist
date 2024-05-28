@@ -7,3 +7,47 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
+
+  MyACMCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: www.the-alchemist.link
+      ValidationMethod: DNS
+      SubjectAlternativeNames:
+        - www.the-alchemist.link
+
+  CloudFrontOriginAccessIdentity:
+    Type: AWS::CloudFront::OriginAccessIdentity
+
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      Enabled: true
+      Aliases:
+        - { Name: www.the-alchemist.link }
+      DistributionConfig:
+        DefaultRootObject: index.html
+        Origins:
+          -
+            DomainName: !GetAtt MyStaticWebsiteBucket.DomainName
+            Id: MyStaticWebsiteOrigin
+            S3OriginConfig:
+              OriginAccessIdentity:
+                !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
+        Restrictions:
+          GeoRestriction:
+            RestrictionType: none
+        ViewerCertificate:
+          ACMCertificateARN: !Ref MyACMCertificate
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1
+
+  Route53AliasRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      AliasTarget:
+        DNSName: !GetAtt CloudFrontDistribution.DomainName
+        HostedZoneId: Z0391670PTNOWL17RBJ
+      Name: www.the-alchemist.link
+      Type: A
+      TTL: 300
