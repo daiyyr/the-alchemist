@@ -4,7 +4,7 @@ Resources:
   MyStaticWebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: hello-cloudfront
+      BucketName: the-alchemist
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
@@ -12,7 +12,7 @@ Resources:
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: hello-cloudfront
+      Bucket: the-alchemist
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -20,7 +20,7 @@ Resources:
             Principal:
               Service: cloudfront.amazonaws.com
             Action: s3:GetObject
-            Resource: arn:aws:s3:::hello-cloudfront/*
+            Resource: arn:aws:s3:::the-alchemist/*
             Condition:
               StringEquals:
                 AWS:SourceArn: !Sub "arn:aws:cloudfront::654654455942:distribution/${CloudFrontDistribution}"
@@ -37,7 +37,7 @@ Resources:
   #   Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
   #   Properties:
   #     CloudFrontOriginAccessIdentityConfig:
-  #       Comment: this is a AWS::CloudFront::CloudFrontOriginAccessIdentity for hello-cloudfront
+  #       Comment: this is a AWS::CloudFront::CloudFrontOriginAccessIdentity for the-alchemist
 
 
   CloudFrontOriginAccessControl:
@@ -45,7 +45,7 @@ Resources:
     Properties:
       OriginAccessControlConfig:
         Description: "origin access control(OAC) for allowing cloudfront to access S3 bucket"
-        Name: hello-cloudfront
+        Name: the-alchemist
         OriginAccessControlOriginType: s3
         SigningBehavior: always
         SigningProtocol: sigv4
@@ -58,8 +58,8 @@ Resources:
     Properties:
       DistributionConfig:
         Origins:
-          - DomainName: hello-cloudfront.s3.ap-southeast-2.amazonaws.com
-            Id: hello-cloudfront
+          - DomainName: the-alchemist.s3.ap-southeast-2.amazonaws.com
+            Id: the-alchemist
             S3OriginConfig:
               OriginAccessIdentity: ""
             OriginAccessControlId: !GetAtt CloudFrontOriginAccessControl.Id
@@ -89,7 +89,7 @@ Resources:
             - POST
             - PUT
           Compress: true
-          TargetOriginId: hello-cloudfront
+          TargetOriginId: the-alchemist
           ForwardedValues:
             QueryString: "false"
             Cookies:
