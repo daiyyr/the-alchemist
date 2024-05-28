@@ -17,7 +17,10 @@ Resources:
         - www.the-alchemist.link
 
   CloudFrontOriginAccessIdentity:
-    Type: AWS::CloudFront::OriginAccessIdentity
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: this is a AWS::CloudFront::CloudFrontOriginAccessIdentity for hello-cloudfront
 
   CloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
