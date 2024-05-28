@@ -15,8 +15,8 @@ A static page
 ## ACM
 
 * Use a seperate pipeline to deploy ACM because:
-- To use a certificate in AWS Certificate Manager (ACM) to require HTTPS between viewers and CloudFront, make sure you request (or import) the certificate in the US East (N. Virginia) Region (us-east-1).
-- https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html
+    - To use a certificate in AWS Certificate Manager (ACM) to require HTTPS between viewers and CloudFront, make sure you request (or import) the certificate in the US East (N. Virginia) Region (us-east-1).
+    - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html
 
 * Once cert created, manually update the second stack to triger the second pipeline
 * The easiest way for cross-region cfn reference is customised Resource. I'd rather manual update here
