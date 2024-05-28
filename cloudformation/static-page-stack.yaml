@@ -4,7 +4,7 @@ Resources:
   MyStaticWebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: the-alchemist
+      BucketName: the-alchemist-link
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
@@ -12,7 +12,7 @@ Resources:
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: the-alchemist
+      Bucket: the-alchemist-link
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -20,7 +20,7 @@ Resources:
             Principal:
               Service: cloudfront.amazonaws.com
             Action: s3:GetObject
-            Resource: arn:aws:s3:::the-alchemist/*
+            Resource: arn:aws:s3:::the-alchemist-link/*
             Condition:
               StringEquals:
                 AWS:SourceArn: !Sub "arn:aws:cloudfront::654654455942:distribution/${CloudFrontDistribution}"
@@ -58,7 +58,7 @@ Resources:
     Properties:
       DistributionConfig:
         Origins:
-          - DomainName: the-alchemist.s3.ap-southeast-2.amazonaws.com
+          - DomainName: the-alchemist-link.s3.ap-southeast-2.amazonaws.com
             Id: the-alchemist
             S3OriginConfig:
               OriginAccessIdentity: ""
