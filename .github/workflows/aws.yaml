@@ -46,4 +46,4 @@ jobs:
       #   uses: aws-actions/install-aws-cli@v1
 
       - name: Upload files to S3 bucket
-        run: aws s3 cp --recursive static s3://the-alchemist-link/
+        run: aws s3 sync static/ s3://the-alchemist-link/
