@@ -96,6 +96,7 @@ Resources:
     Properties:
       Name: www.the-alchemist.link
       Type: A
+      HostedZoneId: Z06958611JDYVCG41K93R
       AliasTarget:
-        HostedZoneId: Z06958611JDYVCG41K93R
         DNSName: !GetAtt CloudFrontDistribution.DomainName
+        HostedZoneId: Z06958611JDYVCG41K93R
