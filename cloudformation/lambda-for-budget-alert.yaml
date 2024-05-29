@@ -60,7 +60,6 @@ Resources:
     Properties:
       FunctionName: !GetAtt BudgetAlertTriggeredFunction.Arn
       Action: lambda:InvokeFunction
-      Principal: events.amazonaws.com
       SourceArn: !Ref BudgetSNSTopic
 
 Outputs:
