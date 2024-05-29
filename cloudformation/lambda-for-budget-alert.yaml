@@ -64,9 +64,8 @@ Resources:
       SourceArn: !Ref BudgetSNSTopic
 
 Outputs:
-  BudgetTriggeredSNSTopic:
+  OutputBudgetSNSTopicARN:
     Description: The scale-in policy ARN to use by auto-scale groups with Azure DevOps agents
     Value: !Ref BudgetSNSTopic
     Export:
       Name: BudgetSNSTopicARN
-
