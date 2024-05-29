@@ -1,0 +1,66 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: Lambda to remove resources once budget alert triggered
+
+Resources:
+  ExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: 'azure-devops-ExecutionRole'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal:
+              Service: lambda.amazonaws.com
+      Path: '/'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: 'budget-lambda-policy'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: AllowR53
+                Effect: Allow
+                Action:
+                  - 'route53:*'
+                Resource: '*'
+
+  BudgetAlertTriggeredFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Runtime: python3.9
+      Role: !Ref ExecutionRole
+      Handler: index.lambda_handler
+      Timeout: 30
+      Code:
+        S3Bucket: the-alchemist-cloudformation
+        S3Key: lambda/budget_alert_action.zip
+      Tags:
+        - Key: Name
+          Value: BudgetAlertTriggeredFunction
+
+  BudgetSNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      Subscription:
+        - Endpoint: !Ref BudgetAlertTriggeredFunction
+          Protocol: lambda
+      TopicName: BudgetSNSTopic
+
+  BudgetAlertTriggeredFunctionInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref BudgetAlertTriggeredFunction
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !Ref BudgetSNSTopic
+
+Outputs:
+  BudgetTriggeredSNSTopic:
+    Description: The scale-in policy ARN to use by auto-scale groups with Azure DevOps agents
+    Value: !Ref BudgetSNSTopic
+    Export:
+      Name: BudgetSNSTopicARN

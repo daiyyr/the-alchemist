@@ -102,3 +102,27 @@ Resources:
         HostedZoneId: Z2FDTNDATAQYW2
         # For CloudFront distributions, the value is always Z2FDTNDATAQYW2
         # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-aliastarget.html#cfn-route53-recordset-aliastarget-hostedzoneid
+
+
+  # If monthly forcast exceed $1, send alert email and remove R53 record (to prevent ddos)
+  MonthlyBudget:
+    Type: "AWS::Budgets::Budget"
+    Properties:
+      Budget:
+        BudgetLimit:
+          Amount: 1
+          Unit: USD
+        TimeUnit: MONTHLY
+        TimePeriod:
+          Start: "2024-06-01"
+        BudgetType: COST
+      NotificationsWithSubscribers:
+        - Notification:
+            NotificationType: FORECASTED
+            ComparisonOperator: GREATER_THAN
+            Threshold: 100
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: teeemo.dai@gmail.com
+            - SubscriptionType: SNS
+              Address: !ImportValue BudgetSNSTopicARN

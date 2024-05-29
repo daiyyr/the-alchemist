@@ -1,16 +1,17 @@
-name: DeployACM
+name: DeployPreRequisites
+# this has to be deployed before other deployments
 
 on:
   push:
     branches:
       - main
     paths:
-      - '.github/workflows/acm.yaml'
-      - 'cloudformation/acm-cert.yaml'
+      - '.github/workflows/deploy-prerequisites.yaml'
+      - 'cloudformation/prerequisite.yaml'
 
 jobs:
-  static_page:
-    name: DeployStaticPage
+  deploy_basic:
+    name: DeployPrerequisite
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,19 +26,9 @@ jobs:
           aws-region: us-east-1
       
       - name: DeployCFNStack
-        id: cfn-static-page
+        id: cfn-prerequisite
         uses: aws-actions/aws-cloudformation-github-deploy@master
         with:
           name: the-alchemist-acm
-          template: cloudformation/acm-cert.yaml
+          template: cloudformation/prerequisite.yaml
           no-fail-on-empty-changeset: "1"
-          # parameter-overrides: >-
-          #   AvailabilityZones=${{ github.event.inputs.region }}a,
-          #   AvailabilityZones=${{ github.event.inputs.region }}c,
-          #   KeyPairName=${{ github.event.inputs.keypair }},
-          #   NumberOfAZs=2,
-          #   ProvisionBastionHost=Disabled,
-          #   EKSPublicAccessEndpoint=Enabled,
-          #   EKSPrivateAccessEndpoint=Enabled,
-          #   RemoteAccessCIDR=0.0.0.0/0
-
