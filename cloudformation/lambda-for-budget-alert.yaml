@@ -60,6 +60,7 @@ Resources:
     Properties:
       FunctionName: !GetAtt BudgetAlertTriggeredFunction.Arn
       Action: lambda:InvokeFunction
+      Principal: "*"
       SourceArn: !Ref BudgetSNSTopic
 
 Outputs:
