@@ -32,4 +32,4 @@ A static page
 ## Security
 
 * CloudFront automatically mitigates DDoS (Distributed Denial of Service) attacks at the network and application layers.
-* To sleep well at night, a budget alarm is setup to trigger email and sns pointing to a lambda that removes R53 records away from cloudfront. CloudFrontDistribution.DomainName itself is considered confidential.
+* To sleep well at night, a budget alarm is setup. When monthly cost or forecast exceed $1, the alarm triggers an email and a sns topic pointing to a lambda that removes R53 records away from cloudfront. CloudFrontDistribution.DomainName itself is considered confidential.
