@@ -27,6 +27,11 @@ Resources:
                 Action:
                   - 'route53:*'
                 Resource: '*'
+              - Sid: AllowR53
+                Effect: Allow
+                Action:
+                  - 'logs:*'
+                Resource: '*'
 
   BudgetAlertTriggeredFunction:
     Type: AWS::Lambda::Function
