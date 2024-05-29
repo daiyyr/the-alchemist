@@ -11,6 +11,9 @@ A static page
 - Cloud Front
 - s3
 - ACM
+- Budget
+- SNS
+- Lambda
 
 ## ACM
 
@@ -25,3 +28,8 @@ A static page
 
 * For any CloudFrontDistribution AliasTarget, the HostedZoneId is always Z2FDTNDATAQYW2
 * https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-aliastarget.html#cfn-route53-recordset-aliastarget-hostedzoneid
+
+## Security
+
+* CloudFront automatically mitigates DDoS (Distributed Denial of Service) attacks at the network and application layers.
+* To sleep well at night, a budget alarm is setup to trigger email and sns pointing to a lambda that removes R53 records away from cloudfront. CloudFrontDistribution.DomainName itself is considered confidential.
