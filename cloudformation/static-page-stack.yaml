@@ -84,15 +84,15 @@ Resources:
               Forward: none
           ViewerProtocolPolicy: redirect-to-https
 
-  Route53AliasRecord:
-    Type: AWS::Route53::RecordSet
-    Properties:
-      Name: www.the-alchemist.link
-      Type: A
-      HostedZoneId: Z06958611JDYVCG41K93R
-      AliasTarget:
-        DNSName: !GetAtt CloudFrontDistribution.DomainName
-        HostedZoneId: Z2FDTNDATAQYW2
+  # Route53AliasRecord:
+  #   Type: AWS::Route53::RecordSet
+  #   Properties:
+  #     Name: www.the-alchemist.link
+  #     Type: A
+  #     HostedZoneId: Z06958611JDYVCG41K93R
+  #     AliasTarget:
+  #       DNSName: !GetAtt CloudFrontDistribution.DomainName
+  #       HostedZoneId: Z2FDTNDATAQYW2
         # For CloudFront distributions, the value is always Z2FDTNDATAQYW2
         # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-aliastarget.html#cfn-route53-recordset-aliastarget-hostedzoneid
 
@@ -112,22 +112,22 @@ Resources:
         # TimePeriod:
         #   Start: 1717113600 # 2024-06-01
 
-      NotificationsWithSubscribers:
-        - Notification:
-            NotificationType: FORECASTED
-            ComparisonOperator: GREATER_THAN
-            Threshold: 100
-          Subscribers:
-            - SubscriptionType: EMAIL
-              Address: teeemo.dai@gmail.com
-            - SubscriptionType: SNS
-              Address: !ImportValue BudgetSNSTopicARN
-        - Notification:
-            NotificationType: ACTUAL
-            ComparisonOperator: GREATER_THAN
-            Threshold: 100
-          Subscribers:
-            - SubscriptionType: EMAIL
-              Address: teeemo.dai@gmail.com
-            - SubscriptionType: SNS
-              Address: !ImportValue BudgetSNSTopicARN
+      # NotificationsWithSubscribers:
+      #   - Notification:
+      #       NotificationType: FORECASTED
+      #       ComparisonOperator: GREATER_THAN
+      #       Threshold: 100
+      #     Subscribers:
+      #       - SubscriptionType: EMAIL
+      #         Address: teeemo.dai@gmail.com
+      #       - SubscriptionType: SNS
+      #         Address: !ImportValue BudgetSNSTopicARN
+      #   - Notification:
+      #       NotificationType: ACTUAL
+      #       ComparisonOperator: GREATER_THAN
+      #       Threshold: 100
+      #     Subscribers:
+      #       - SubscriptionType: EMAIL
+      #         Address: teeemo.dai@gmail.com
+      #       - SubscriptionType: SNS
+      #         Address: !ImportValue BudgetSNSTopicARN
