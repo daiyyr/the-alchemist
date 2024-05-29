@@ -7,8 +7,16 @@ Resources:
       BucketName: the-alchemist-link
       WebsiteConfiguration:
         IndexDocument: index.html
-        ErrorDocument: error.html
-
+        ErrorDocument: 404.html
+        RoutingRules:
+          - RoutingRuleCondition:
+              KeyPrefixEquals: /blog/
+            RedirectRule:
+              ReplaceKeyPrefixWith: /blog/index.html
+          - RoutingRuleCondition:
+              KeyPrefixEquals: /about/
+            RedirectRule:
+              ReplaceKeyPrefixWith: /about/index.html
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -54,7 +62,7 @@ Resources:
         CustomErrorResponses:
           - ErrorCode: 404
             ResponseCode: 404
-            ResponsePagePath: /error.html
+            ResponsePagePath: /404.html
           - ErrorCode: 403
             ResponseCode: 200
             ResponsePagePath: /index.html
