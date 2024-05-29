@@ -108,8 +108,8 @@ Resources:
         BudgetType: COST
         TimeUnit: MONTHLY
         # Start and End should be of type Long in Epoch Seconds. use https://www.epochconverter.com/
-        TimePeriod:
-          Start: 1717113600 # 2024-06-01
+        # TimePeriod:
+        #   Start: 1717113600 # 2024-06-01
 
       NotificationsWithSubscribers:
         - Notification:
@@ -146,9 +146,6 @@ Resources:
             Action: 'SNS:Publish'
             Resource:
               - !ImportValue BudgetSNSTopicARN
-            Condition:
-              StringEquals:
-                AWS:SourceOwner: "*"
           - Sid: AllowAWSConsoleTrigger
             Effect: Allow
             Principal:
