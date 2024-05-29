@@ -1,17 +1,22 @@
 ## Introduction
-A static page
+Cheapest way to host a SPA or static website with https on S3
 
 ## Pricing
 0.5 USD per month for one hosted zone
 5 USD per year for one domain name
 
+## Security
+
+* CloudFront automatically mitigates DDoS (Distributed Denial of Service) attacks at the network and application layers.
+* To sleep well at night, a budget alarm is setup. When monthly cost or forecast exceed $1, the alarm triggers an email and a sns topic pointing to a lambda that removes R53 records away from cloudfront. CloudFrontDistribution.DomainName itself is considered confidential.
+
 ## Leverage below
 - Github Action
 - CFN
 - Cloud Front
-- s3
+- S3
 - ACM
-- Budget
+- AWS Budget
 - SNS
 - Lambda
 
@@ -28,8 +33,3 @@ A static page
 
 * For any CloudFrontDistribution AliasTarget, the HostedZoneId is always Z2FDTNDATAQYW2
 * https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-aliastarget.html#cfn-route53-recordset-aliastarget-hostedzoneid
-
-## Security
-
-* CloudFront automatically mitigates DDoS (Distributed Denial of Service) attacks at the network and application layers.
-* To sleep well at night, a budget alarm is setup. When monthly cost or forecast exceed $1, the alarm triggers an email and a sns topic pointing to a lambda that removes R53 records away from cloudfront. CloudFrontDistribution.DomainName itself is considered confidential.
