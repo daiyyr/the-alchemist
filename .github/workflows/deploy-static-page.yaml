@@ -7,7 +7,7 @@ on:
     paths:
       - '.github/workflows/deploy-static-page.yaml'
       - 'cloudformation/static-page-stack.yaml'
-      - 'static/**'
+      - 'eleventy/**'
 
 jobs:
   static_page:
@@ -32,15 +32,28 @@ jobs:
           name: the-alchemist
           template: cloudformation/static-page-stack.yaml
           no-fail-on-empty-changeset: "1"
-          # parameter-overrides: >-
-          #   AvailabilityZones=${{ github.event.inputs.region }}a,
-          #   AvailabilityZones=${{ github.event.inputs.region }}c,
-          #   KeyPairName=${{ github.event.inputs.keypair }},
-          #   NumberOfAZs=2,
-          #   ProvisionBastionHost=Disabled,
-          #   EKSPublicAccessEndpoint=Enabled,
-          #   EKSPrivateAccessEndpoint=Enabled,
-          #   RemoteAccessCIDR=0.0.0.0/0
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Cache npm
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+
+      - name: Cache Eleventy .cache
+        uses: actions/cache@v3
+        with:
+          path: eleventy/.cache
+          key: ${{ runner.os }}-eleventy-fetch-cache
+
+      - run: |
+          cd eleventy
+          npm install
+          npm run build-ghpages
 
       - name: Upload files to S3 bucket
-        run: aws s3 sync static/ s3://the-alchemist-link/
+        run: aws s3 sync eleventy/_site s3://the-alchemist-link/
