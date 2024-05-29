@@ -38,7 +38,7 @@ Resources:
     Properties:
       Runtime: python3.9
       Role: !GetAtt ExecutionRole.Arn
-      Handler: index.lambda_handler
+      Handler: budget_alert_action.lambda_handler
       Timeout: 30
       Code:
         S3Bucket: the-alchemist-cfn
