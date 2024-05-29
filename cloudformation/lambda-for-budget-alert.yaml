@@ -36,7 +36,7 @@ Resources:
       Handler: index.lambda_handler
       Timeout: 30
       Code:
-        S3Bucket: the-alchemist-cloudformation
+        S3Bucket: the-alchemist-cfn
         S3Key: lambda/budget_alert_action.zip
       Tags:
         - Key: Name

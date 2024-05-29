@@ -9,7 +9,7 @@ Resources:
   SharedBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: the-alchemist-cloudformation
+      BucketName: the-alchemist-cfn
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true

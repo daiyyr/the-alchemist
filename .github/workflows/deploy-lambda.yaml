@@ -28,7 +28,7 @@ jobs:
       - name: Upload lambda to S3 bucket
         run: |
           zip -rj budget_alert_action.zip lambda
-          aws s3 cp budget_alert_action.zip s3://the-alchemist-cloudformation/lambda/
+          aws s3 cp budget_alert_action.zip s3://the-alchemist-cfn/lambda/
 
       - name: DeployCFNStack
         id: cfn-lambda
