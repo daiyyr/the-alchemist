@@ -111,25 +111,25 @@ Resources:
         # TimePeriod:
         #   Start: 1717113600 # 2024-06-01
 
-      NotificationsWithSubscribers:
-        - Notification:
-            NotificationType: FORECASTED
-            ComparisonOperator: GREATER_THAN
-            Threshold: 100
-          Subscribers:
-            - SubscriptionType: EMAIL
-              Address: teeemo.dai@gmail.com
-            - SubscriptionType: SNS
-              Address: !ImportValue BudgetSNSTopicARN
-        - Notification:
-            NotificationType: ACTUAL
-            ComparisonOperator: GREATER_THAN
-            Threshold: 100
-          Subscribers:
-            - SubscriptionType: EMAIL
-              Address: teeemo.dai@gmail.com
-            - SubscriptionType: SNS
-              Address: !ImportValue BudgetSNSTopicARN
+      # NotificationsWithSubscribers:
+      #   - Notification:
+      #       NotificationType: FORECASTED
+      #       ComparisonOperator: GREATER_THAN
+      #       Threshold: 100
+      #     Subscribers:
+      #       - SubscriptionType: EMAIL
+      #         Address: teeemo.dai@gmail.com
+      #       - SubscriptionType: SNS
+      #         Address: !ImportValue BudgetSNSTopicARN
+      #   - Notification:
+      #       NotificationType: ACTUAL
+      #       ComparisonOperator: GREATER_THAN
+      #       Threshold: 100
+      #     Subscribers:
+      #       - SubscriptionType: EMAIL
+      #         Address: teeemo.dai@gmail.com
+      #       - SubscriptionType: SNS
+      #         Address: !ImportValue BudgetSNSTopicARN
 
   TopicPolicy:
     Type: AWS::SNS::TopicPolicy
