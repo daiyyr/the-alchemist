@@ -2,8 +2,8 @@
 Cheapest way to host a SPA or static website with https on S3
 
 ## Pricing
-0.5 USD per month for one hosted zone
-5 USD per year for one domain name
+* 0.5 USD per month for one hosted zone
+* 5 USD per year for one domain name
 
 ## Security
 
