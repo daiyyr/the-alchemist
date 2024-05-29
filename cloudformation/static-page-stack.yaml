@@ -112,16 +112,25 @@ Resources:
         BudgetLimit:
           Amount: 1
           Unit: USD
+        BudgetType: COST
         TimeUnit: MONTHLY
 
         # Start and End should be of type Long in Epoch Seconds. use https://www.epochconverter.com/
         # TimePeriod:
         #   Start: 1717113600 # 2024-06-01
 
-        BudgetType: COST
       NotificationsWithSubscribers:
         - Notification:
             NotificationType: FORECASTED
+            ComparisonOperator: GREATER_THAN
+            Threshold: 100
+          Subscribers:
+            - SubscriptionType: EMAIL
+              Address: teeemo.dai@gmail.com
+            - SubscriptionType: SNS
+              Address: !ImportValue BudgetSNSTopicARN
+        - Notification:
+            NotificationType: ACTUAL
             ComparisonOperator: GREATER_THAN
             Threshold: 100
           Subscribers:
