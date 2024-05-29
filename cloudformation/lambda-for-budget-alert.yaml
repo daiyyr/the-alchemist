@@ -32,7 +32,7 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Runtime: python3.9
-      Role: !Ref ExecutionRole
+      Role: !GetAtt ExecutionRole.Arn
       Handler: index.lambda_handler
       Timeout: 30
       Code:
@@ -53,10 +53,10 @@ Resources:
   BudgetAlertTriggeredFunctionInvokePermission:
     Type: AWS::Lambda::Permission
     Properties:
-      FunctionName: !Ref BudgetAlertTriggeredFunction
+      FunctionName: !GetAtt BudgetAlertTriggeredFunction.Arn
       Action: lambda:InvokeFunction
       Principal: events.amazonaws.com
-      SourceArn: !Ref BudgetSNSTopic
+      SourceArn: !GetAtt BudgetSNSTopic.Arn
 
 Outputs:
   BudgetTriggeredSNSTopic:
