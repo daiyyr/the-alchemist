@@ -26,13 +26,6 @@ Resources:
                 AWS:SourceArn: !Sub "arn:aws:cloudfront::654654455942:distribution/${CloudFrontDistribution}"
 
 
-
-  # CloudFrontOriginAccessIdentity:
-  #   Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
-  #   Properties:
-  #     CloudFrontOriginAccessIdentityConfig:
-  #       Comment: this is a AWS::CloudFront::CloudFrontOriginAccessIdentity for the-alchemist
-
   CloudFrontOriginAccessControl:
     Type: AWS::CloudFront::OriginAccessControl
     Properties:
@@ -104,7 +97,7 @@ Resources:
         # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-aliastarget.html#cfn-route53-recordset-aliastarget-hostedzoneid
 
 
-  # If monthly forcast exceed $1, send alert email and remove R53 record (to prevent ddos)
+  # If monthly forcast or actual exceed $1, send alert email and remove R53 record (to prevent ddos)
   MonthlyBudget:
     Type: "AWS::Budgets::Budget"
     Properties:
@@ -116,8 +109,8 @@ Resources:
         TimeUnit: MONTHLY
 
         # Start and End should be of type Long in Epoch Seconds. use https://www.epochconverter.com/
-        # TimePeriod:
-        #   Start: 1717113600 # 2024-06-01
+        TimePeriod:
+          Start: 1717113600 # 2024-06-01
 
       NotificationsWithSubscribers:
         - Notification:
