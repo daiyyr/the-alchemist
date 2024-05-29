@@ -43,7 +43,7 @@ Resources:
     Properties:
       DistributionConfig:
         Origins:
-          - DomainName: the-alchemist-link.s3-website-ap-southeast-2.amazonaws.com
+          - DomainName: the-alchemist-link.s3-website.ap-southeast-2.amazonaws.com
             Id: the-alchemist
             S3OriginConfig:
               OriginAccessIdentity: ""
