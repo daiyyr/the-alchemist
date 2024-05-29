@@ -27,7 +27,7 @@ Resources:
                 Action:
                   - 'route53:*'
                 Resource: '*'
-              - Sid: AllowR53
+              - Sid: AllowCloudwatch
                 Effect: Allow
                 Action:
                   - 'logs:*'
