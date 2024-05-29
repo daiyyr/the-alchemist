@@ -2,24 +2,22 @@
 Cheapest way to host a SPA or static website with https on S3
 
 ## Pricing
-* 0.5 USD per month for one hosted zone
-* 5 USD per year for one domain name
+* Hosted Zone: **$0.50 per month**
+* Domain Name: **$5.00 per year**
 
 ## Security
 
-* CloudFront automatically mitigates DDoS (Distributed Denial of Service) attacks at the network and application layers.
-* To sleep well at night, a budget alarm is setup. When monthly cost or forecast exceed $1, the alarm triggers:
-    - an email
-    - a sns topic pointing to a lambda that removes R53 records away from cloudfront
-* CloudFrontDistribution.DomainName itself is considered confidential.
+CloudFront automatically mitigates DDoS (Distributed Denial of Service) attacks at the network and application layers. Additionally, to sleep well at night, a budget alarm is setup. When monthly costs or forecasts exceed $1, it triggers:
+    - an email notification.
+    - a sns topic pointing to a lambda that removes R53 records away from cloudfront. Hence CloudFrontDistribution.DomainName is considered confidential and should be treated accordingly.
 
-## Leverage below
+## Technologies Leveraged
 - Github Action
 - CFN
-- Cloud Front
+- CloudFront
 - S3
 - ACM
-- AWS Budget
+- AWS Budgets
 - SNS
 - Lambda
 
