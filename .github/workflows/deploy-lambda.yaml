@@ -1,11 +1,11 @@
-name: DeployLambdaForBudgetAlert
+name: DeployBudgetAlertTriggeredLambda
 
 on:
   push:
     branches:
       - main
     paths:
-      - '.github/workflows/lambda.yaml'
+      - '.github/workflows/deploy-lambda.yaml'
       - 'cloudformation/lambda-for-budget-alert.yaml'
       - 'lambda/**'
 

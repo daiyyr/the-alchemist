@@ -1,4 +1,4 @@
-name: DeployPreRequisites
+name: DeployPrerequisites
 # this has to be deployed before other deployments
 
 on:
