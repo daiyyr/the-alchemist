@@ -46,11 +46,11 @@ Resources:
     Type: AWS::SNS::Topic
     Properties:
       Subscription:
-        - Endpoint: !Ref BudgetAlertTriggeredFunction
+        - Endpoint: !GetAtt LambdaFunction.Arn
           Protocol: lambda
       TopicName: BudgetSNSTopic
 
-  BudgetAlertTriggeredFunctionInvokePermission:
+  LambdaFunctionInvokePermission:
     Type: AWS::Lambda::Permission
     Properties:
       FunctionName: !GetAtt BudgetAlertTriggeredFunction.Arn
