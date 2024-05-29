@@ -11,7 +11,7 @@ CloudFront automatically mitigates DDoS (Distributed Denial of Service) attacks 
     - an email notification.
     - a sns topic pointing to a lambda that removes R53 records away from cloudfront. Hence CloudFrontDistribution.DomainName is considered confidential and should be treated accordingly.
 
-## Technologies Leveraged
+## Services Leveraged
 - Github Action
 - CFN
 - CloudFront
