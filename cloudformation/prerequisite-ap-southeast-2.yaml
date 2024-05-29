@@ -1,0 +1,17 @@
+
+
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: This has to be deployed before other deployments
+
+Resources:
+
+  SharedBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: the-alchemist-cloudformation
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true

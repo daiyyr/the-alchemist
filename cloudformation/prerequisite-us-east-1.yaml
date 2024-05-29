@@ -15,14 +15,3 @@ Resources:
       ValidationMethod: DNS
       SubjectAlternativeNames:
         - www.the-alchemist.link
-
-
-  SharedBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: the-alchemist-cloudformation
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: true
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
