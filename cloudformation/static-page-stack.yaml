@@ -108,9 +108,9 @@ Resources:
         BudgetType: COST
         TimeUnit: MONTHLY
 
-        # Start and End should be of type Long in Epoch Seconds. use https://www.epochconverter.com/
-        TimePeriod:
-          Start: 1717113600 # 2024-06-01
+        # # Start and End should be of type Long in Epoch Seconds. use https://www.epochconverter.com/
+        # TimePeriod:
+        #   Start: 1717113600 # 2024-06-01
 
       NotificationsWithSubscribers:
         - Notification:
