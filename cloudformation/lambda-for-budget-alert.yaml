@@ -48,7 +48,7 @@ Resources:
       Subscription:
         - Endpoint: !GetAtt BudgetAlertTriggeredFunction.Arn
           Protocol: lambda
-      TopicName: BudgetSNSTopic
+      TopicName: TheAlchemistBudgetAlertMonthlyOneDollarExceed
 
   LambdaFunctionInvokePermission:
     Type: AWS::Lambda::Permission
