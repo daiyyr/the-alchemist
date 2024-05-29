@@ -34,6 +34,6 @@ jobs:
         id: cfn-lambda
         uses: aws-actions/aws-cloudformation-github-deploy@master
         with:
-          name: the-alchemist
+          name: budget-alert-triggered-lambda
           template: cloudformation/lambda-for-budget-alert.yaml
           no-fail-on-empty-changeset: "1"
