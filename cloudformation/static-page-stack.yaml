@@ -8,15 +8,6 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: 404.html
-        RoutingRules:
-          - RoutingRuleCondition:
-              KeyPrefixEquals: /blog/
-            RedirectRule:
-              ReplaceKeyPrefixWith: /blog/index.html
-          - RoutingRuleCondition:
-              KeyPrefixEquals: /about/
-            RedirectRule:
-              ReplaceKeyPrefixWith: /about/index.html
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -52,7 +43,7 @@ Resources:
     Properties:
       DistributionConfig:
         Origins:
-          - DomainName: the-alchemist-link.s3.ap-southeast-2.amazonaws.com
+          - DomainName: the-alchemist-link.s3-website-ap-southeast-2.amazonaws.com
             Id: the-alchemist
             S3OriginConfig:
               OriginAccessIdentity: ""
