@@ -16,13 +16,14 @@ Resources:
         Version: '2012-10-17'
         Statement:
           - Effect: Allow
-            Principal:
-              Service: cloudfront.amazonaws.com
+            Principal: "*"
+              # Service: cloudfront.amazonaws.com # this is for bucket origin. we use bucket public access origin
             Action: s3:GetObject
             Resource: arn:aws:s3:::the-alchemist-link/*
-            Condition:
-              StringEquals:
-                AWS:SourceArn: !Sub "arn:aws:cloudfront::654654455942:distribution/${CloudFrontDistribution}"
+            # Condition:
+            #   StringEquals:
+            #     AWS:SourceArn: !Sub "arn:aws:cloudfront::654654455942:distribution/${CloudFrontDistribution}"
+            # # this is for bucket origin. we use bucket public access origin
 
 
   CloudFrontOriginAccessControl:
