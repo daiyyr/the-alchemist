@@ -54,10 +54,11 @@
 			{{ content | safe }}
 		</main>
 
-		<footer></footer>
+		<footer>
+			<p>This page was built on {% currentBuildDate %}</p>
+			<p>Frontend was built using the open-source project Eleventy. Infrastructure and CI/CD were developed and open-srouced by Teemo Dai: https://github.com/daiyyr/the-alchemist</p>
+		</footer>
 
-		<p>This page was built on {% currentBuildDate %}</p>
-		<p>Frontend was built using the open-source project Eleventy. Infrastructure and CI/CD were developed and open-srouced by Teemo Dai</p>
 
 	</body>
 </html>
