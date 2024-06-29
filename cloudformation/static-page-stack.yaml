@@ -173,3 +173,4 @@ Resources:
             Condition:
               StringEquals:
                 AWS:SourceOwner: "*"
+
