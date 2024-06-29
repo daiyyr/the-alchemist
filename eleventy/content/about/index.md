@@ -4,6 +4,4 @@ eleventyNavigation:
   key: About Me
   order: 3
 ---
-# About Me
-
-"Im coming, Fatima," he said.
+# "Im coming, Fatima," he said.
