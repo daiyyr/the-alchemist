@@ -4,14 +4,14 @@ Resources:
   MyStaticWebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: the-alchemist-link
+      BucketName: www.the-alchemist.link
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: 404.html
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: the-alchemist-link
+      Bucket: www.the-alchemist.link
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -19,7 +19,7 @@ Resources:
             Principal: "*"
               # Service: cloudfront.amazonaws.com # this is for bucket origin. we use bucket public access origin
             Action: s3:GetObject
-            Resource: arn:aws:s3:::the-alchemist-link/*
+            Resource: arn:aws:s3:::www.the-alchemist.link/*
             # Condition:
             #   StringEquals:
             #     AWS:SourceArn: !Sub "arn:aws:cloudfront::654654455942:distribution/${CloudFrontDistribution}"
@@ -44,7 +44,7 @@ Resources:
     Properties:
       DistributionConfig:
         Origins:
-          - DomainName: the-alchemist-link.s3-website-ap-southeast-2.amazonaws.com
+          - DomainName: www.the-alchemist.link.s3-website-ap-southeast-2.amazonaws.com
             Id: the-alchemist
             CustomOriginConfig:
               OriginProtocolPolicy: http-only
