@@ -8,7 +8,10 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: 404.html
+        
   BucketPolicy:
+    DependsOn:
+      - MyStaticWebsiteBucket
     Type: AWS::S3::BucketPolicy
     Properties:
       Bucket: www.the-alchemist.link
