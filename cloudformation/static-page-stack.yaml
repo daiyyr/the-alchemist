@@ -84,7 +84,7 @@ Resources:
     Type: AWS::CloudFront::CachePolicy
     Properties:
       CachePolicyConfig:
-        Name: repo-monitor-cache-policy
+        Name: the-alchemist-cache-policy
         DefaultTTL: 60
         MaxTTL: 31536000
         MinTTL: 0
