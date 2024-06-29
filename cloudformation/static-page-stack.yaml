@@ -8,6 +8,9 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: 404.html
+      PublicAccessBlockConfiguration:
+        BlockPublicPolicy: false
+        RestrictPublicBuckets: false
 
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
