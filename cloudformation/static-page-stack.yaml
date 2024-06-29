@@ -67,6 +67,8 @@ Resources:
           MinimumProtocolVersion: TLSv1.2_2021
           SslSupportMethod: sni-only
         DefaultCacheBehavior:
+          TargetOriginId: the-alchemist
+          CachePolicyId: !Ref CloudfrontCachePolicy
           AllowedMethods:
             - DELETE
             - GET
@@ -76,12 +78,28 @@ Resources:
             - POST
             - PUT
           Compress: true
-          TargetOriginId: the-alchemist
-          ForwardedValues:
-            QueryString: "false"
-            Cookies:
-              Forward: none
           ViewerProtocolPolicy: redirect-to-https
+
+  CloudfrontCachePolicy:
+    Type: AWS::CloudFront::CachePolicy
+    Properties:
+      CachePolicyConfig:
+        Name: repo-monitor-cache-policy
+        DefaultTTL: 60
+        MaxTTL: 31536000
+        MinTTL: 0
+        ParametersInCacheKeyAndForwardedToOrigin:
+          CookiesConfig: 
+            CookieBehavior: none
+          EnableAcceptEncodingBrotli: true
+          EnableAcceptEncodingGzip: true
+          HeadersConfig:
+            HeaderBehavior: whitelist
+            Headers:
+              - Host
+              - X-Original-Host
+          QueryStringsConfig:
+            QueryStringBehavior: all
 
   Route53AliasRecord:
     Type: AWS::Route53::RecordSet
