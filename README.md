@@ -1,9 +1,12 @@
 ## Introduction
-Cheapest way to host a SPA or static website with https on S3
+I believe this is the cheapest way to host a SPA or static website with https on S3
 
-## Pricing
-* Hosted Zone: **$0.50 per month**
-* Domain Name: **$5.00 per year**
+## Estimated Monthly Cost
+* An AWS Hosted Zone: **$0.50 per month**
+* An AWS Domain Name: **$5.00 per year**
+* Free Tier AWS CloudFront:
+- 1 TB of data transfer out to the internet per month
+- 10,000,000 HTTP or HTTPS Requests per month
 
 ## Security
 
