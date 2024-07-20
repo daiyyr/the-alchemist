@@ -10,7 +10,7 @@ I believe this is the cheapest way to host a SPA or static website with https on
 
 ## Security
 
-CloudFront automatically mitigates DDoS (Distributed Denial of Service) attacks at the network and application layers. Additionally, to sleep well at night, a budget alarm is setup. When monthly costs or forecasts exceed $1, it triggers:
+CloudFront automatically mitigates DDoS (Distributed Denial of Service) attacks at the network and application layers. Additionally, for you to sleep well at night, a budget alarm is setup. When monthly costs or forecasts exceed $1, it triggers:
 - an email notification.
 - a sns topic pointing to a lambda that removes R53 records away from cloudfront. Hence CloudFrontDistribution.DomainName is considered confidential and should be treated accordingly.
 
