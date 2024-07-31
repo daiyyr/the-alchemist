@@ -2,6 +2,8 @@ AWSTemplateFormatVersion: '2010-09-09'
 Resources:
 
   MyStaticWebsiteBucket:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::S3::Bucket
     Properties:
       BucketName: the-alchemist.link
@@ -12,9 +14,20 @@ Resources:
         BlockPublicPolicy: false
         RestrictPublicBuckets: false
 
-  BucketPolicy:
+  MyStaticWebsiteBucketWww:
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: www.the-alchemist.link
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: 404.html
+      PublicAccessBlockConfiguration:
+        BlockPublicPolicy: false
+        RestrictPublicBuckets: false
+
+  BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
       Bucket: !Ref MyStaticWebsiteBucket
@@ -31,6 +44,17 @@ Resources:
             #     AWS:SourceArn: !Sub "arn:aws:cloudfront::654654455942:distribution/${CloudFrontDistribution}"
             # # this is for bucket origin. we use bucket public access origin
 
+  BucketPolicyWww:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MyStaticWebsiteBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: "*"
+            Action: s3:GetObject
+            Resource: arn:aws:s3:::www.the-alchemist.link/*
 
   CloudFrontOriginAccessControl:
     Type: AWS::CloudFront::OriginAccessControl
@@ -129,8 +153,6 @@ Resources:
       AliasTarget:
         DNSName: !GetAtt CloudFrontDistribution.DomainName
         HostedZoneId: Z2FDTNDATAQYW2
-        # For CloudFront distributions, the value is always Z2FDTNDATAQYW2
-        # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-aliastarget.html#cfn-route53-recordset-aliastarget-hostedzoneid
 
 
   # If monthly forcast or actual exceed $1, send alert email and remove R53 record (to prevent ddos)
