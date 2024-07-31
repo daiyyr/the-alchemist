@@ -5,8 +5,8 @@ I believe this is the cheapest way to host a SPA or static website with https on
 * An AWS Hosted Zone: **$0.50 per month**
 * An AWS Domain Name: **$5.00 per year**
 * Free Tier AWS CloudFront:
-- 1 TB of data transfer out to the internet per month
-- 10,000,000 HTTP or HTTPS Requests per month
+    - 1 TB of data transfer out to the internet per month
+    - 10,000,000 HTTP or HTTPS Requests per month
 
 ## Security
 
