@@ -56,4 +56,4 @@ jobs:
           npm run build
 
       - name: Upload files to S3 bucket
-        run: aws s3 sync eleventy/_site s3://www.the-alchemist.link/
+        run: aws s3 sync eleventy/_site s3://the-alchemist.link/

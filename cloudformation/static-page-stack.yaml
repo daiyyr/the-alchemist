@@ -4,7 +4,7 @@ Resources:
   MyStaticWebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: www.the-alchemist.link
+      BucketName: the-alchemist.link
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: 404.html
@@ -23,7 +23,7 @@ Resources:
             Principal: "*"
               # Service: cloudfront.amazonaws.com # this is for bucket origin. we use bucket public access origin
             Action: s3:GetObject
-            Resource: arn:aws:s3:::www.the-alchemist.link/*
+            Resource: arn:aws:s3:::the-alchemist.link/*
             # Condition:
             #   StringEquals:
             #     AWS:SourceArn: !Sub "arn:aws:cloudfront::654654455942:distribution/${CloudFrontDistribution}"
@@ -48,7 +48,7 @@ Resources:
     Properties:
       DistributionConfig:
         Origins:
-          - DomainName: www.the-alchemist.link.s3-website-ap-southeast-2.amazonaws.com
+          - DomainName: the-alchemist.link.s3-website-ap-southeast-2.amazonaws.com
             Id: the-alchemist
             CustomOriginConfig:
               OriginProtocolPolicy: http-only
@@ -108,7 +108,7 @@ Resources:
   Route53AliasRecord:
     Type: AWS::Route53::RecordSet
     Properties:
-      Name: www.the-alchemist.link
+      Name: the-alchemist.link
       Type: A
       HostedZoneId: Z06958611JDYVCG41K93R
       AliasTarget:
@@ -117,15 +117,6 @@ Resources:
         # For CloudFront distributions, the value is always Z2FDTNDATAQYW2
         # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-aliastarget.html#cfn-route53-recordset-aliastarget-hostedzoneid
 
-  Route53AliasRecordZoneApex:
-    Type: AWS::Route53::RecordSet
-    Properties:
-      Name: the-alchemist.link
-      Type: A
-      HostedZoneId: Z06958611JDYVCG41K93R
-      AliasTarget:
-        DNSName: !Ref Route53AliasRecord
-        HostedZoneId: Z06958611JDYVCG41K93R
 
   # If monthly forcast or actual exceed $1, send alert email and remove R53 record (to prevent ddos)
   MonthlyBudget:

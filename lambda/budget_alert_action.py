@@ -3,7 +3,7 @@
 import boto3
 
 zone_id = 'Z06958611JDYVCG41K93R'
-record_name = 'www.the-alchemist.link.'
+record_name = 'the-alchemist.link.'
 record_type = 'A'
 aliasTarget = {}
 

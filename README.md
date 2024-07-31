@@ -40,7 +40,6 @@ CloudFront automatically mitigates DDoS (Distributed Denial of Service) attacks 
 
 ## Host your own website
 - Replace secrets.AWS_ACCESS_KEY_ID_TEEMO1DAI and secrets.AWS_SECRET_ACCESS_KEY_TEEMO1DAI with your github secrets that stores aws credentials.
-- Replace www.the-alchemist.link with a s3 name you choose (do not manually create it).
-- Replace www.the-alchemist.link with the domain name you manually registered or imported in aws.
+- Replace the-alchemist.link with the domain name you manually registered or imported in aws.
 - After the first github action run, the ACM cert will be created. Put its ARN here: AcmCertificateArn: arn:aws:acm:us-east-1:account_id:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 - Update the site with your content in the /eleventy folder; Or update .github/workflows/deploy-static-page.yaml to put your own content in the s3 bucket
