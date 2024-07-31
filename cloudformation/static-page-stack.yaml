@@ -13,6 +13,8 @@ Resources:
         RestrictPublicBuckets: false
 
   BucketPolicy:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::S3::BucketPolicy
     Properties:
       Bucket: !Ref MyStaticWebsiteBucket
