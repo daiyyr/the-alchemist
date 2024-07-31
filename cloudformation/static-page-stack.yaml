@@ -107,6 +107,30 @@ Resources:
           QueryStringsConfig:
             QueryStringBehavior: all
 
+  Route53AliasRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name: www.the-alchemist.link
+      Type: A
+      HostedZoneId: Z06958611JDYVCG41K93R
+      AliasTarget:
+        DNSName: !GetAtt CloudFrontDistribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+        # For CloudFront distributions, the value is always Z2FDTNDATAQYW2
+        # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-aliastarget.html#cfn-route53-recordset-aliastarget-hostedzoneid
+
+  Route53AliasRecordZoneApex:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name: the-alchemist.link
+      Type: A
+      HostedZoneId: Z06958611JDYVCG41K93R
+      AliasTarget:
+        DNSName: !GetAtt CloudFrontDistribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+        # For CloudFront distributions, the value is always Z2FDTNDATAQYW2
+        # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-aliastarget.html#cfn-route53-recordset-aliastarget-hostedzoneid
+
 
   # If monthly forcast or actual exceed $1, send alert email and remove R53 record (to prevent ddos)
   MonthlyBudget:
