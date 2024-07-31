@@ -66,7 +66,7 @@ Resources:
         HttpVersion: http3
         Aliases:
           - the-alchemist.link
-          - www.the-alchemist.link # this requires the same name s3 bucket exists (www.the-alchemist.link), so if we want to enable an alias, we are actually hosting one more website
+          # - www.the-alchemist.link # this requires the same name s3 bucket exists (www.the-alchemist.link), so if we want to enable an alias, we are actually hosting one more website
         ViewerCertificate:
           # To use a certificate in AWS Certificate Manager (ACM) to require HTTPS between viewers and CloudFront, make sure you request (or import) the certificate in the US East (N. Virginia) Region (us-east-1).
           # https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-and-https-requirements.html
@@ -107,18 +107,6 @@ Resources:
               - X-Original-Host
           QueryStringsConfig:
             QueryStringBehavior: all
-
-  Route53AliasRecord:
-    Type: AWS::Route53::RecordSet
-    Properties:
-      Name: www.the-alchemist.link
-      Type: A
-      HostedZoneId: Z06958611JDYVCG41K93R
-      AliasTarget:
-        DNSName: !GetAtt CloudFrontDistribution.DomainName
-        HostedZoneId: Z2FDTNDATAQYW2
-        # For CloudFront distributions, the value is always Z2FDTNDATAQYW2
-        # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-aliastarget.html#cfn-route53-recordset-aliastarget-hostedzoneid
 
   Route53AliasRecordZoneApex:
     Type: AWS::Route53::RecordSet
