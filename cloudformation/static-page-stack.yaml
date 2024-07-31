@@ -109,7 +109,7 @@ Resources:
   Route53AliasRecord:
     Type: AWS::Route53::RecordSet
     Properties:
-      Name: www.the-alchemist.link
+      Name: the-alchemist.link
       Type: A
       HostedZoneId: Z06958611JDYVCG41K93R
       AliasTarget:
