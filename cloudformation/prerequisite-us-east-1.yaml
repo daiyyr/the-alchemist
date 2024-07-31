@@ -15,3 +15,4 @@ Resources:
       ValidationMethod: DNS
       SubjectAlternativeNames:
         - www.the-alchemist.link
+        - the-alchemist.link
