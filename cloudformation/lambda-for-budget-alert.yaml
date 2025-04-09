@@ -2,6 +2,10 @@ AWSTemplateFormatVersion: '2010-09-09'
 
 Description: Lambda to remove resources once budget alert triggered
 
+Metadata:
+  Author: 
+    - Teemo Dai
+
 Resources:
   ExecutionRole:
     Type: 'AWS::IAM::Role'
