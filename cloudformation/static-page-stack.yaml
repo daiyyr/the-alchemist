@@ -168,7 +168,7 @@ Resources:
     Properties:
       Budget:
         BudgetLimit:
-          Amount: 1
+          Amount: 10
           Unit: USD
         BudgetType: COST
         TimeUnit: MONTHLY
